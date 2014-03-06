@@ -13,16 +13,12 @@ public class PlayerController : MonoBehaviour
 
 		float vertical = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
 		transform.Translate(0, 0, vertical);*/
-		float x = Input.GetAxis("Horizontal");
-		float z = Input.GetAxis("Vertical");
-		Vector3 force = new Vector3(x, 0, z);
-		rigidbody.AddForce(force * moveSpeed);
-	}/*
+	}
 	void FixedUpdate()
 	{
 		float x = Input.GetAxis("Horizontal");
 		float z = Input.GetAxis("Vertical");
 		Vector3 force = new Vector3(x, 0, z);
 		rigidbody.AddForce(force * moveSpeed);
-	}*/
+	}
 }
