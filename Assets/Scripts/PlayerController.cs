@@ -8,10 +8,21 @@ public class PlayerController : MonoBehaviour
 
 	void Update ()
 	{
-		float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
+		/*float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
 		transform.Rotate(0,horizontal, 0);
 
 		float vertical = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
-		transform.Translate(0, 0, vertical);
-	}
+		transform.Translate(0, 0, vertical);*/
+		float x = Input.GetAxis("Horizontal");
+		float z = Input.GetAxis("Vertical");
+		Vector3 force = new Vector3(x, 0, z);
+		rigidbody.AddForce(force * moveSpeed);
+	}/*
+	void FixedUpdate()
+	{
+		float x = Input.GetAxis("Horizontal");
+		float z = Input.GetAxis("Vertical");
+		Vector3 force = new Vector3(x, 0, z);
+		rigidbody.AddForce(force * moveSpeed);
+	}*/
 }

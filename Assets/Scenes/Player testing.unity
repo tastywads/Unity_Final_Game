@@ -180,6 +180,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1226105145}
+  - 54: {fileID: 1226105150}
   - 33: {fileID: 1226105149}
   - 135: {fileID: 1226105148}
   - 23: {fileID: 1226105147}
@@ -255,6 +256,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1226105144}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1226105150
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1226105144}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1238547656
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,12 +361,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1238547656}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4c583fba88bf9b49a23e0b20b0dec2b, type: 3}
+  m_Script: {fileID: 11500000, guid: b422a0470dcb3d048a5ce0605261c69c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  turnSpeed: 5
-  myTransform: {fileID: 0}
+  target: {fileID: 1226105144}
+  rotateSpeed: 5
 --- !u!114 &1238547663
 MonoBehaviour:
   m_ObjectHideFlags: 0

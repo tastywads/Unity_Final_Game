@@ -23,5 +23,9 @@ public class MouseAimCamera : MonoBehaviour {
 		transform.position = target.transform.position - (rotation * offset);
 		
 		transform.LookAt(target.transform);
+
+		// note:
+		/*this camera has no vertial movemnt*/
+		
 	}
 }
