@@ -135,7 +135,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 256
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1380943809}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77030430ff95dea4ea65fbe1fc103f2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7765c9fd2b51a1049bc80e84065bbb8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   networkScript: {fileID: 1841855213}
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1841855212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cff69873286253946b4c9025a9101692, type: 3}
+  m_Script: {fileID: 11500000, guid: 291655eaa9d2b8f48aecd9d7a96acd7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1841855214
@@ -300,7 +300,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: .192156896, g: .264205545, b: .474509835, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
