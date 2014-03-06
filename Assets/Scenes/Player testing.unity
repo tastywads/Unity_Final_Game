@@ -104,7 +104,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 3f80478e332fa7d4086081056865857f, type: 2}
+  - {fileID: 2100000, guid: 60551e9d3b30f8a429f54f330d99de3a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -208,13 +208,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1226105144}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9accd1e17cb0ccd4894d3f95167dd12a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d0bfb4cc3555ae4393ccf28639288c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  turnSpeed: 15
+  target: {fileID: 0}
 --- !u!23 &1226105147
 Renderer:
   m_ObjectHideFlags: 0
@@ -343,25 +342,25 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1238547656}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec19bbad0be1579468613f309f20523d, type: 3}
+  m_Script: {fileID: 11500000, guid: a4c583fba88bf9b49a23e0b20b0dec2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1226105144}
+  moveSpeed: 5
+  turnSpeed: 5
 --- !u!114 &1238547663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1238547656}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3558cd5f7a05e44ca58308f72a9fbbe, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d0bfb4cc3555ae4393ccf28639288c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1226105144}
-  rotateSpeed: 5
 --- !u!1 &1268501556
 GameObject:
   m_ObjectHideFlags: 0
