@@ -3,26 +3,31 @@ using System.Collections;
 
 public class GameTimer : MonoBehaviour 
 {
-	public float timeLeft;
-	//public float gameTime;
+	public float countdown;
+	public int seconds;
+	public int minutes;
 
 	void Update () 
 	{
-		timeLeft -= Time.deltaTime;
+
 	}
 
 	void OnGUI()
 	{
-		GUI.backgroundColor = Color.red;
-		if (timeLeft < 60) 
-		{
-			GUI.backgroundColor = Color.red;
-			GUI.Box(new Rect(10,10,50,20), "" + timeLeft.ToString("F1"));
-		}
-		else 
-		{
-			GUI.Box(new Rect(10,10,50,20), "" + timeLeft.ToString("0"));
-		}
-	}
 
+//		if (timeLeft < 10) 
+//		{
+//			GUI.backgroundColor = Color.red;
+//			GUI.Button(new Rect(10,10,50,20), "" + timeLeft.ToString("F1"));
+//		}
+//		else if (timeLeft < 30 ) 
+//		{
+//			GUI.backgroundColor = Color.yellow;
+//			GUI.Button(new Rect(10,10,50,20), "" + timeLeft.ToString("0"));				
+//		}
+//		else
+//		{
+//			GUI.Button(new Rect(10,10,50,20), "" + timeLeft.ToString("0"));
+//		}
+	}
 }

@@ -171,7 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23306aef12d02d24b9e353694f9e1ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLeft: 50
+  timeLeft: 15
+  buttonImage: {fileID: 2800000, guid: 5fd1e427afe023942b128a16126f8546, type: 3}
 --- !u!4 &655537063
 Transform:
   m_ObjectHideFlags: 0
