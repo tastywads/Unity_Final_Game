@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MouseAimCamera : MonoBehaviour {
-
+public class MouseAimCamera : MonoBehaviour
+{
 	public GameObject target;
 	public float rotateSpeed;
 	Vector3 offset;

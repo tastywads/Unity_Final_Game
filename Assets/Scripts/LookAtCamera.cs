@@ -3,6 +3,7 @@ using System.Collections;
 
 public class LookAtCamera : MonoBehaviour 
 {
+	/*This Script is for a still camera to focus on a gameObject*/
 	public GameObject target;
 	public float damping;
 
