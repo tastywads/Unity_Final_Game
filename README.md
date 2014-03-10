@@ -12,7 +12,6 @@ To Do Llist:
 - platform
   -dropping parts off
   -lights
-- game timer
 - keep score
 - pickups?
 
@@ -23,3 +22,9 @@ Bug List:
 
 Finished:
 - menu?
+
+- Timer
+    Settings Avaliable
+      - values: Minute,Seconds,Miliseconds
+      - Public display toggles for each value
+      - Public Start and Stop
