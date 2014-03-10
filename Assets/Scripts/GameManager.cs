@@ -3,15 +3,16 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour 
 {
-	//public Timer countdownTimer;
+	public CountdownTimer gameTimer;
+	public CountdownTimer preGameTimer;
 
 	void Start()
 	{
-		//countdownTimer = countdownTimer.GetComponent<Timer>;
+		gameTimer.enabled = false;
 	}
 	void Update () 
 	{
-		//countdownTimer.StartTimer();
-		//countdownTimer.Fade();
+		preGameTimer.StartTimer();
+
 	}
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CountdownTimer : MonoBehaviour 
@@ -9,7 +9,8 @@ public class CountdownTimer : MonoBehaviour
     public int seconds;
     public float miliseconds;
 
-    public bool detailed;
+    public bool bMiliseconds;
+    public bool bDetailed;
     private bool go;
 
 
@@ -27,7 +28,7 @@ public class CountdownTimer : MonoBehaviour
         {
             Debug.Log("Seconds set too high, setting to 59");
             seconds = 59;
-        }
+        }	
         if (miliseconds > 100)
         {
             Debug.Log("Miliseconds set to high, setting to 99");
@@ -37,7 +38,7 @@ public class CountdownTimer : MonoBehaviour
 
     void Update() 
     {
-        //This is for testing, make sure to remove it after your done.
+        // This is for testing, make sure to remove it on release.
         if(Input.GetMouseButtonDown(0))
         {
             if(!go)
@@ -45,6 +46,12 @@ public class CountdownTimer : MonoBehaviour
                 StartTimer();
             }
         }
+        if (Input.GetMouseButtonDown(1))
+        {
+            ToggleDetailed();
+        }
+        //-------------------- end testing section -----------------------
+
         if (go)
         {
             StartTimer(); 
@@ -143,6 +150,17 @@ public class CountdownTimer : MonoBehaviour
         }
     }
 
+	public void ToggleDetailed()
+	{
+        bDetailed = !bDetailed;
+        Debug.Log("Detail Toggle is now " + bDetailed);
+	}
+
+    public void ToggleMiliseconds()
+    {
+        bMiliseconds = !bMiliseconds;
+        Debug.Log("Miliseconds Toggle is now " + bMiliseconds);
+    }
 
     void StopTimer()
     {
