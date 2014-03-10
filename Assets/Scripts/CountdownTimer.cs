@@ -12,11 +12,13 @@ public class CountdownTimer : MonoBehaviour
     public bool bToggleMin;
     public bool bToggleSec;
     public bool bToggleMS;
-    private bool go;
 
+    private bool go;
+    private bool ended;
 
     void Start() 
     {
+        ended = false;
         timer.text = "";
         // make sure all the variables are corectly set
         if( !guiText )
@@ -79,6 +81,7 @@ public class CountdownTimer : MonoBehaviour
             miliseconds = 0;
             PrintTime();
             go = false;
+            ended = true;
             return;
             //end the game do other stuff?
         }
@@ -200,11 +203,19 @@ public class CountdownTimer : MonoBehaviour
     public void StartTimer()
     {
         go = true;
+        Debug.Log("Timer has been started");
     }
     public void StopTimer()
     {
         go = false;
+        timer.text = string.Format("");
+        Debug.Log("Timer has been stopped");
     }
+    public bool isEnd()
+    {
+        return ended;
+    }
+  
 }
 
 

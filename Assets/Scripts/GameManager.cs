@@ -5,14 +5,26 @@ public class GameManager : MonoBehaviour
 {
 	public CountdownTimer gameTimer;
 	public CountdownTimer preGameTimer;
+    public GUIText startText;
+
+    private bool gameStart;
 
 	void Start()
 	{
-		gameTimer.enabled = false;
+        gameStart = false;
+        preGameTimer.StartTimer();
 	}
 	void Update () 
 	{
-		preGameTimer.StartTimer();
+        if (preGameTimer.isEnd() && gameStart == false)
+        {
+            gameStart = true;
 
+            preGameTimer.ToggleSeconds();
+            preGameTimer.StopTimer();
+            startText.text = string.Format("START!");
+
+            gameTimer.StartTimer();
+        }
 	}
 }
