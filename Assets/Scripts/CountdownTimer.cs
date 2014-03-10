@@ -39,8 +39,12 @@ public class CountdownTimer : MonoBehaviour
 
     void Update() 
     {
+        if (go)
+        {
+            clock();
+        }
         // This is for testing, make sure to remove it on release.
-        if(Input.GetMouseButtonDown(0))
+        /*if(Input.GetMouseButtonDown(0))
         {
             if(!go)
             {
@@ -58,19 +62,12 @@ public class CountdownTimer : MonoBehaviour
         if (Input.GetKeyDown("3"))
         {
             ToggleMiliseconds();
-        }
+        }*/
         //-------------------- end testing section -----------------------
-
-        if (go)
-        {
-            StartTimer(); 
-        }
     }
 
-    public void StartTimer()
+    void clock()
     {
-        go = true;
-
         miliseconds -= Time.deltaTime * 100;
 
         // print first because if prited later, at 0:00:00 sec, 0:00:01 will be printed
@@ -85,7 +82,7 @@ public class CountdownTimer : MonoBehaviour
             return;
             //end the game do other stuff?
         }
-
+        
         if(miliseconds <= 0)
         {
             if(seconds <= 0)
@@ -102,7 +99,7 @@ public class CountdownTimer : MonoBehaviour
         }
     }
 
-    public void PrintTime()
+    void PrintTime()
     {
         // show minutes
         if (bToggleMin && !bToggleSec && !bToggleMS)
@@ -199,8 +196,24 @@ public class CountdownTimer : MonoBehaviour
         Debug.Log("Miliseconds Toggle is now " + bToggleMS);
     }
 
-    void StopTimer()
+    //start and stop
+    public void StartTimer()
+    {
+        go = true;
+    }
+    public void StopTimer()
     {
         go = false;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
