@@ -9,8 +9,9 @@ public class CountdownTimer : MonoBehaviour
     public int seconds;
     public float miliseconds;
 
-    public bool bMiliseconds;
-    public bool bDetailed;
+    public bool bToggleMin;
+    public bool bToggleSec;
+    public bool bToggleMS;
     private bool go;
 
 
@@ -46,9 +47,17 @@ public class CountdownTimer : MonoBehaviour
                 StartTimer();
             }
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown("1"))
         {
-            ToggleDetailed();
+            ToggleMinutes();
+        }
+        if (Input.GetKeyDown("2"))
+        {
+            ToggleSeconds();
+        }
+        if (Input.GetKeyDown("3"))
+        {
+            ToggleMiliseconds();
         }
         //-------------------- end testing section -----------------------
 
@@ -95,18 +104,35 @@ public class CountdownTimer : MonoBehaviour
 
     public void PrintTime()
     {
-        if (detailed)
+        // show minutes
+        if (bToggleMin && !bToggleSec && !bToggleMS)
         {
-            DetailedTimer();
-            return;
+            timer.text = string.Format("{0}", minutes);
         }
-        SimpleTimer();
-    }
-
-    void SimpleTimer()
-    {
-        // formatting so only sections with time left are printed - without miliseconds
-        if (minutes > 0)
+        // show seconds
+        else if (!bToggleMin && bToggleSec && !bToggleMS)
+        {
+            timer.text = string.Format("{0}", seconds);
+        }
+        // show miliseconds
+        else if (!bToggleMin && !bToggleSec && bToggleMS)
+        {
+            timer.text = string.Format("{0}", (int)miliseconds);
+        }
+        // show seconds and miliseconds
+        else if (!bToggleMin && bToggleSec && bToggleMS)
+        {
+            if (miliseconds < 10)
+            {
+                timer.text = string.Format("{0}:0{1}", seconds, (int)miliseconds);
+            }
+            else
+            {
+                timer.text = string.Format("{0}:{1}", seconds, (int)miliseconds);
+            }  
+        }
+        // show minutes and seconds
+        else if (bToggleMin && bToggleSec && !bToggleMS)
         {
             if (seconds < 10)
             {
@@ -117,49 +143,60 @@ public class CountdownTimer : MonoBehaviour
                 timer.text = string.Format("{0}:{1}", minutes, seconds);
             }   
         }
-        else
+        // show minutes, seconds, and miliseconds
+        else if (bToggleMin && bToggleSec && bToggleMS)
         {
-            timer.text = string.Format("{0}", seconds);
-        }
-    }
-
-    void DetailedTimer()
-    {
-        // better looking formatting
-        if (seconds < 10)
-        {
-            if (miliseconds < 10)
+            // these if's are just for formatting
+            if (seconds < 10)
             {
-                timer.text = string.Format("{0}:0{1}:0{2}", minutes, seconds, (int)miliseconds);
+                if (miliseconds < 10)
+                {
+                    timer.text = string.Format("{0}:0{1}:0{2}", minutes, seconds, (int)miliseconds);
+                }
+                else
+                {
+                    timer.text = string.Format("{0}:0{1}:{2}", minutes, seconds, (int)miliseconds);
+                }
             }
             else
             {
-                timer.text = string.Format("{0}:0{1}:{2}", minutes, seconds, (int)miliseconds);
+                if (miliseconds < 10)
+                {
+                    timer.text = string.Format("{0}:{1}:0{2}", minutes, seconds, (int)miliseconds);
+                }
+                else
+                {
+                    timer.text = string.Format("{0}:{1}:{2}", minutes, seconds, (int)miliseconds);
+                }
             }
+        }
+        // show nothing
+        else if (!bToggleMin && !bToggleSec && !bToggleMS)
+        {
+            timer.text = string.Format("");
         }
         else
         {
-            if (miliseconds < 10)
-            {
-                timer.text = string.Format("{0}:{1}:0{2}", minutes, seconds, (int)miliseconds);
-            }
-            else
-            {
-                timer.text = string.Format("{0}:{1}:{2}", minutes, seconds, (int)miliseconds);
-            }
+            Debug.Log("That is a invalid setting, are you trying to toggle miliseconds and minutes?");
+            timer.text = string.Format("");
         }
     }
 
-	public void ToggleDetailed()
+    // these three toggle functions will change if minutes, seconds or miliseconds are shown
+	public void ToggleMinutes()
 	{
-        bDetailed = !bDetailed;
-        Debug.Log("Detail Toggle is now " + bDetailed);
+        bToggleMin = !bToggleMin;
+        Debug.Log("Minutes toggle is now " + bToggleMin);
 	}
-
+    public void ToggleSeconds()
+    {
+        bToggleSec = !bToggleSec;
+        Debug.Log("Seconds toggle is now " + bToggleSec);
+    }
     public void ToggleMiliseconds()
     {
-        bMiliseconds = !bMiliseconds;
-        Debug.Log("Miliseconds Toggle is now " + bMiliseconds);
+        bToggleMS = !bToggleMS;
+        Debug.Log("Miliseconds Toggle is now " + bToggleMS);
     }
 
     void StopTimer()
