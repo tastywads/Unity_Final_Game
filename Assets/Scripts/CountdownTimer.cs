@@ -27,12 +27,12 @@ public class CountdownTimer : MonoBehaviour
             enabled = false;
             return;
         }
-        if (seconds > 60)
+        if (seconds > 59)
         {
             Debug.Log("Seconds set too high, setting to 59");
             seconds = 59;
         }	
-        if (miliseconds > 100)
+        if (miliseconds > 99)
         {
             Debug.Log("Miliseconds set to high, setting to 99");
             miliseconds = 99;
