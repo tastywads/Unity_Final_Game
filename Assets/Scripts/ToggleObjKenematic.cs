@@ -4,21 +4,24 @@ using System.Collections;
 public class ToggleObjKenematic : MonoBehaviour {
 
 	public GameObject target;
+    public bool playerHitToggle;
 	
 	void Start()
 	{
 		target.rigidbody.useGravity = false;
 		target.rigidbody.isKinematic = true;
 	}
-	void Update()
-	{
-		// for testing
-		/*if (Input.GetMouseButtonDown(0)) 
-		{
-			ToggleGravity();
-		}*/
-	}
-	
+
+    void OnCollisionEnter(Collision hit)
+    {
+        if (playerHitToggle && hit.rigidbody.CompareTag("Player"))
+        {
+            Debug.Log("Player hit Falling wall");
+            target.rigidbody.isKinematic = false;
+            target.rigidbody.useGravity = true;
+        }
+    }
+   
 	public void ToggleGravity()
 	{
 		if (target.rigidbody.isKinematic == true) 
