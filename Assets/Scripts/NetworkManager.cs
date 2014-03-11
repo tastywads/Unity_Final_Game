@@ -3,18 +3,38 @@ using System.Collections;
 
 public class NetworkManager : MonoBehaviour 
 {
+	public SpawnManager spawnScript;
+
 	//Start server
-	public void StartServer(string gameTypeName, string gameName)
+	public void ConnectToServer(string gameTypeName)
 	{
 		Debug.Log("Starting a new server...");
+		/*
 		Network.InitializeServer (2, 25002, false);
-		MasterServer.RegisterHost(gameTypeName, gameName);
+		MasterServer.RegisterHost(gameTypeName, gameName);*/
+		PhotonNetwork.ConnectUsingSettings (gameTypeName);
+	}
+
+	public void MakeRoom(string gameName)
+	{
+		PhotonNetwork.CreateRoom(gameName);
 	}
 
 	//Refresh server list
-	public void RefreshHostList(string gameTypeName)
+	public RoomInfo[] GetRoomList()
 	{
 		Debug.Log("Refreshing...");
-		MasterServer.RequestHostList(gameTypeName);
+		//MasterServer.RequestHostList(gameTypeName);
+		return PhotonNetwork.GetRoomList();
+	}
+
+	public void JoinRoom(string gameName)
+	{
+		PhotonNetwork.JoinRoom(gameName);
+	}
+
+	private void SpawnPlayer()
+	{
+		spawnScript.SpawnPlayer();
 	}
 }

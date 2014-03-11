@@ -13,17 +13,22 @@ public class MenuButtonManager : MonoBehaviour
 	private bool hostGame;
 	private bool connectGame;
 	private bool returnButtonPressed;
-	private HostData[] hostData;
+	private RoomInfo[] rooms;
 
 	void Awake()
 	{
 		gameName = "";
-		gameTypeName = "Future_Card_Buddyfight_Online";
+		gameTypeName = "Game_Engine_Final_Game";
 		hostGame = false;
 		connectGame = false;
 		returnButtonPressed = false;
-		hostData = null;
+		rooms = null;
 		onMenu = true;
+	}
+
+	void Start()
+	{
+		networkScript.ConnectToServer (gameTypeName);
 	}
 
 	void OnGUI()
@@ -44,7 +49,7 @@ public class MenuButtonManager : MonoBehaviour
 				if(GUI.Button(new Rect( (Screen.width/2)-75, (Screen.height/5)-50, 150, 100), "Connect to Game"))
 				{
 					//Get all the hosted games
-					networkScript.RefreshHostList(gameTypeName);
+					rooms = networkScript.GetRoomList();
 					//Gets rid of "Enter Game Name" box
 					hostGame = false;
 					//Head to list of games screen
@@ -64,7 +69,7 @@ public class MenuButtonManager : MonoBehaviour
 					{
 						returnButtonPressed = true;
 						//Starts and hosts game
-						networkScript.StartServer(gameTypeName, gameName);
+						networkScript.MakeRoom(gameName);
 						//Changes camera
 						MenuCamera.depth=-1;
 						//No longer in menu
@@ -81,16 +86,16 @@ public class MenuButtonManager : MonoBehaviour
 			else
 			{
 				//If there are games
-				if(hostData != null)
+				if(rooms != null)
 				{
 					//Print them in a list
-					for(int i=0; i<hostData.Length; ++i)
+					for(int i=0; i<rooms.Length; ++i)
 					{
 						//If respective game button is clicked
-						if(GUI.Button(new Rect((Screen.width/3)-150, 65f + (30f * i), 300f, 30f), hostData[i].gameName))
+						if(GUI.Button(new Rect((Screen.width/3)-150, 65f + (30f * i), 300f, 30f), rooms[i].name))
 						{
 							//Connects to game
-							Network.Connect(hostData[i]);
+							networkScript.JoinRoom(rooms[i].name);
 							Debug.Log("Connecting...");
 							//Changes camera
 							MenuCamera.depth=-1;
@@ -111,33 +116,9 @@ public class MenuButtonManager : MonoBehaviour
 				if(GUI.Button(new Rect( ((Screen.width/4)*3)-75, (Screen.height/3)-30, 150f, 60f), "Refresh"))
 				{
 					//Get all the hosted games
-					networkScript.RefreshHostList(gameTypeName);
+					rooms = networkScript.GetRoomList();
 				}
 			}
-		}
-	}
-
-	void OnMasterServerEvent(MasterServerEvent msEvent)
-	{
-		switch(msEvent)
-		{
-		//If a list of games is recieved
-		case MasterServerEvent.HostListReceived:
-			{
-				//Localize list of games
-				hostData = MasterServer.PollHostList();
-				/*
-				if(hostData == null || hostData.Length == 0)
-				{
-					Debug.Log ("No active servers have been found.");
-				}
-				else
-				{
-					Debug.Log(hostData.Length + " server(s) found.");
-				}
-				*/
-			}
-			break;
 		}
 	}
 
