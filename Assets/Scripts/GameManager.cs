@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 	public CountdownTimer gameTimer;
 	public CountdownTimer preGameTimer;
     public FadeGUIText startText;
-	public ToggleObjKenematic[] toggleOneArray;
+	public GameObject DropOneGroup;
 
 	public int DropOneMin;
 	public int DropOneSec;
@@ -19,11 +19,12 @@ public class GameManager : MonoBehaviour
 	private bool finalCountdown;
 	private bool bDropOne;
 
+
+
 	void Start()
 	{
         gameStart = false;
         preGameTimer.StartTimer();
-		startText.guiText.enabled = false;
 		finalCountdown = false;
 		bDropOne = false;
 	}
@@ -32,7 +33,14 @@ public class GameManager : MonoBehaviour
         if (preGameTimer.isEnd() && gameStart == false)
         {
             gameStart = true;
-			startText.guiText.enabled = true;
+
+			//quick fade in and slower fade out
+			startText.Fade();
+			startText.SwitchFadeType();
+			startText.ResetFaded();
+			startText.Fade();
+
+
             preGameTimer.ToggleSeconds();
             preGameTimer.StopTimer();
 
@@ -48,11 +56,12 @@ public class GameManager : MonoBehaviour
 			}
 			if (gameTimer.minutes == DropOneMin && gameTimer.seconds == DropOneSec && !bDropOne) 
 			{
-				Debug.Log(toggleOneArray.Length);
-				for (int i = 0; i < toggleOneArray.Length; i++)
+				//Debug.Log(toggleOneArray.Length);
+
+				/*for (int i = 0; i < toggleOneArray.Length; i++)
 				{
 					toggleOneArray[i].ToggleGravity();
-				}
+				}*/
 				bDropOne = true;
 			}
 		}

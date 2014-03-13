@@ -4,7 +4,7 @@ using System.Collections;
 public class LookAtCamera : MonoBehaviour 
 {
 	/*This Script is for a still camera to focus on a gameObject*/
-	public Transform target;
+	public GameObject target;
 	public float damping;
 
 	// late update is called after all other update functions
@@ -17,6 +17,6 @@ public class LookAtCamera : MonoBehaviour
 		Quaternion rotation = Quaternion.Euler(0, angle, 0);
 
 		// move the camera
-		transform.LookAt (target);
+		transform.LookAt (target.transform);
 	}
 }

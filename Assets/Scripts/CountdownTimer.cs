@@ -21,7 +21,7 @@ public class CountdownTimer : MonoBehaviour
         ended = false;
         timer.text = "";
         // make sure all the variables are corectly set
-        if( !guiText )
+        if( false )
         {
             Debug.Log("This timer requires a GUIText component");
             enabled = false;

@@ -6,7 +6,8 @@ public class FadeGUIText : MonoBehaviour {
 	public GUIText startText;
 
 	public float startAlpha;
-	public float fadeSpeed;
+	public float fadeInSpeed;
+	public float fadeOutSpeed;
 
 	public bool fadeIn;
 	public bool fadeOut;
@@ -19,6 +20,10 @@ public class FadeGUIText : MonoBehaviour {
 
 	void Start()
 	{
+		if(fadeIn && fadeOut)
+		{
+			Debug.Log("Please Toggle Only One Fade Type, use public SwitchFadeType() in other scripts to flip the fade");
+		}
 		// cache original colors
 		origRed = startText.font.material.color.r;
 		origGreen = startText.font.material.color.g;
@@ -28,17 +33,13 @@ public class FadeGUIText : MonoBehaviour {
 		startText.font.material.color = new Color (origRed, origGreen, origBlue, startAlpha);
 	}
 
-	void Update () 
-	{
-
-	}
 	void FadeOut()
 	{
-		startText.material.color = new Color (origRed, origGreen, origBlue, startAlpha -= fadeSpeed);
+		startText.material.color = new Color (origRed, origGreen, origBlue, startAlpha -= fadeOutSpeed);
 	}
 	void FadeIn()
 	{
-		startText.font.material.color = new Color (origRed, origGreen, origBlue, startAlpha += fadeSpeed);
+		startText.font.material.color = new Color (origRed, origGreen, origBlue, startAlpha += fadeInSpeed);
 	}
 
 	public void Fade()
@@ -62,5 +63,16 @@ public class FadeGUIText : MonoBehaviour {
 			faded = true;
 			startAlpha = 1;
 		}
+	}
+
+	public void ResetFaded()
+	{
+		faded = false;
+	}
+
+	public void SwitchFadeType()
+	{
+		fadeIn = !fadeIn;
+		fadeOut = !fadeOut;
 	}
 }
