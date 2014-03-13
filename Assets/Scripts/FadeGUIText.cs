@@ -30,7 +30,7 @@ public class FadeGUIText : MonoBehaviour {
 		origBlue = startText.font.material.color.b;
 
 		// set text transparency
-		startText.font.material.color = new Color (origRed, origGreen, origBlue, startAlpha);
+		startText.material.color = new Color (origRed, origGreen, origBlue, startAlpha);
 	}
 
 	void FadeOut()
@@ -39,7 +39,7 @@ public class FadeGUIText : MonoBehaviour {
 	}
 	void FadeIn()
 	{
-		startText.font.material.color = new Color (origRed, origGreen, origBlue, startAlpha += fadeInSpeed);
+		startText.material.color = new Color (origRed, origGreen, origBlue, startAlpha += fadeInSpeed);
 	}
 
 	public void Fade()

@@ -3,8 +3,8 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour 
 {
-	public CountdownTimer gameTimer;
 	public CountdownTimer preGameTimer;
+	public CountdownTimer gameTimer;
     public FadeGUIText startText;
 	public GameObject DropOneGroup;
 
@@ -19,14 +19,13 @@ public class GameManager : MonoBehaviour
 	private bool finalCountdown;
 	private bool bDropOne;
 
-
-
+	
 	void Start()
 	{
         gameStart = false;
-        preGameTimer.StartTimer();
 		finalCountdown = false;
 		bDropOne = false;
+		preGameTimer.StartTimer();
 	}
 	void Update () 
 	{
@@ -38,8 +37,7 @@ public class GameManager : MonoBehaviour
 			startText.Fade();
 			startText.SwitchFadeType();
 			startText.ResetFaded();
-			startText.Fade();
-
+			//startText.Fade();
 
             preGameTimer.ToggleSeconds();
             preGameTimer.StopTimer();
