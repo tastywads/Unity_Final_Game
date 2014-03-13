@@ -3,6 +3,7 @@ using System.Collections;
 
 public class NetworkManager : MonoBehaviour 
 {
+	public Camera menuCamera;
 	public SpawnManager spawnScript;
 
 	//Start server
@@ -31,6 +32,12 @@ public class NetworkManager : MonoBehaviour
 	public void JoinRoom(string gameName)
 	{
 		PhotonNetwork.JoinRoom(gameName);
+	}
+
+	private void OnJoinedRoom()
+	{
+		SpawnPlayer();
+		menuCamera.enabled = false;
 	}
 
 	private void SpawnPlayer()
