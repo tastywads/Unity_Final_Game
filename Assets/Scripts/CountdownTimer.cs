@@ -21,7 +21,7 @@ public class CountdownTimer : MonoBehaviour
         ended = false;
         timer.text = "";
         // make sure all the variables are corectly set
-        if( false )
+        if( !timer )
         {
             Debug.Log("This timer requires a GUIText component");
             enabled = false;
@@ -199,6 +199,12 @@ public class CountdownTimer : MonoBehaviour
         Debug.Log("Miliseconds Toggle is now " + bToggleMS);
     }
 
+    //set the time
+    public void SetSeconds(int newTime)
+    {
+        seconds = newTime;
+    }
+
     //start and stop
     public void StartTimer()
     {
@@ -214,6 +220,10 @@ public class CountdownTimer : MonoBehaviour
     public bool isEnd()
     {
         return ended;
+    }
+    public void ResetTimer()
+    {
+        ended = false;
     }
   
 }

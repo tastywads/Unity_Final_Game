@@ -6,32 +6,51 @@ public class GameManager : MonoBehaviour
 	public CountdownTimer preGameTimer;
 	public CountdownTimer gameTimer;
     public FadeGUIText startText;
-	public GameObject DropOneGroup;
+	public Component dropOneGroup;
+    public Component dropTwoGroup;
+    public Component dropThreeGroup;
 
-	public int DropOneMin;
-	public int DropOneSec;
-	public int DropTwoMin;
-	public int DropTwoSec;
-	public int DropThreeMin;
-	public int DropThreeSec;
+    // time for flatform drops
+    public int dropOneMin;
+	public int dropOneSec;
+	public int dropTwoMin;
+	public int dropTwoSec;
+	public int dropThreeMin;
+	public int dropThreeSec;
 
-    private bool gameStart;
-	private bool finalCountdown;
+    // variables that deal with material changes
+    public int secBeforewarn;
+    public Material warningDrop;
+
+    private bool bGameStart;
+	private bool bFinalCountdown;
 	private bool bDropOne;
+    private bool bDropTwo;
+    private bool bDropThree;
 
+    private ToggleObjKenematic[] dropOneArray;
+    private ToggleObjKenematic[] dropTwoArray;
+    private ToggleObjKenematic[] dropThreeArray;
+
+    private Renderer[] changeToWarning;
 	
 	void Start()
 	{
-        gameStart = false;
-		finalCountdown = false;
-		bDropOne = false;
+        bGameStart = false;
+		bFinalCountdown = false;
 		preGameTimer.StartTimer();
+
+        // putting child objects of each drop parent into arrays
+        dropOneArray = dropOneGroup.GetComponentsInChildren<ToggleObjKenematic>();
+        dropTwoArray = dropTwoGroup.GetComponentsInChildren<ToggleObjKenematic>();
+        dropThreeArray = dropThreeGroup.GetComponentsInChildren<ToggleObjKenematic>();      
 	}
+
 	void Update () 
 	{
-        if (preGameTimer.isEnd() && gameStart == false)
+        if (preGameTimer.isEnd() && bGameStart == false)
         {
-            gameStart = true;
+            bGameStart = true;
 
 			//quick fade in and slower fade out
 			startText.Fade();
@@ -44,24 +63,89 @@ public class GameManager : MonoBehaviour
 
             gameTimer.StartTimer();
         }
-		if (gameStart) 
+        if (bGameStart) 
 		{
 			startText.Fade();
-			if (gameTimer.minutes == 0 && gameTimer.seconds == 30 && !finalCountdown) 
-			{
-				gameTimer.ToggleMiliseconds();
-				finalCountdown = true;
-			}
-			if (gameTimer.minutes == DropOneMin && gameTimer.seconds == DropOneSec && !bDropOne) 
-			{
-				//Debug.Log(toggleOneArray.Length);
-
-				/*for (int i = 0; i < toggleOneArray.Length; i++)
-				{
-					toggleOneArray[i].ToggleGravity();
-				}*/
-				bDropOne = true;
-			}
+            MaterialFade();
+            DropCheck();
 		}
 	}
+
+    void DropCheck()
+    {
+        if (gameTimer.minutes == 0 && gameTimer.seconds == 30 && !bFinalCountdown) 
+        {
+            gameTimer.ToggleMiliseconds();
+            bFinalCountdown = true;
+        }
+
+        if (gameTimer.minutes == dropOneMin && gameTimer.seconds == dropOneSec && !bDropOne) 
+        {
+            Debug.Log("Drop one");
+            
+            foreach(ToggleObjKenematic child in dropOneArray)
+            {
+                Debug.Log("Toggle gravity");
+                child.ToggleGravity();
+            }
+            
+            bDropOne = true;
+        }
+        else if (gameTimer.minutes == dropTwoMin && gameTimer.seconds == dropTwoSec && !bDropTwo) 
+        {
+            Debug.Log("Drop Two");
+            
+            foreach(ToggleObjKenematic child in dropTwoArray)
+            {
+                Debug.Log("Toggle gravity");
+                child.ToggleGravity();
+            }
+            
+            bDropTwo = true;
+        }
+        else if (gameTimer.minutes == dropThreeMin && gameTimer.seconds == dropThreeSec && !bDropThree) 
+        {
+            Debug.Log("Drop Three");             
+            
+            foreach(ToggleObjKenematic child in dropThreeArray)
+            {
+                Debug.Log("Toggle gravity");
+                child.ToggleGravity();
+            }
+            
+            bDropThree = true;
+        }
+    }
+
+    // this function switches the material to warn the player a platform is about to drop
+    void MaterialFade()
+    {
+        if (gameTimer.minutes == dropOneMin && gameTimer.seconds == ( dropOneSec + secBeforewarn))
+        {
+            changeToWarning = dropOneGroup.GetComponentsInChildren<Renderer>();
+
+            foreach(Renderer child in changeToWarning)
+            {
+                child.material = warningDrop;
+            }
+        }
+        else if (gameTimer.minutes == dropTwoMin && gameTimer.seconds == (dropTwoSec + secBeforewarn))
+        {
+            changeToWarning = dropTwoGroup.GetComponentsInChildren<Renderer>();
+
+            foreach(Renderer child in changeToWarning)
+            {
+                child.material = warningDrop;
+            }
+        }
+        else if (gameTimer.minutes == dropThreeMin && gameTimer.seconds == (dropThreeSec + secBeforewarn))
+        {
+            changeToWarning = dropThreeGroup.GetComponentsInChildren<Renderer>();
+
+            foreach(Renderer child in changeToWarning)
+            {
+                child.material = warningDrop;
+            }
+        }
+    }
 }
