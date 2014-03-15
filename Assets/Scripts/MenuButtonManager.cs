@@ -5,7 +5,6 @@ public class MenuButtonManager : MonoBehaviour
 {
 	public NetworkManager networkScript;
 	public Camera MenuCamera;
-	public Camera BoardCamera;
 
 	private string gameName;
 	private string gameTypeName;
@@ -28,7 +27,16 @@ public class MenuButtonManager : MonoBehaviour
 
 	void Start()
 	{
+		//Culling Mask = Menu
+		MenuCamera.cullingMask = 1<<8;
+
 		networkScript.ConnectToServer (gameTypeName);
+		PhotonNetwork.player.name = PlayerPrefs.GetString("Username", "Default Username");
+	}
+
+	void OnDestroy()
+	{
+		PlayerPrefs.SetString("Username", PhotonNetwork.player.name);
 	}
 
 	void OnGUI()
@@ -36,6 +44,7 @@ public class MenuButtonManager : MonoBehaviour
 		//The game is on menu screen
 		if(onMenu)
 		{
+			GUI.backgroundColor = Color.white;
 			//Not on list of games screen
 			if(connectGame == false)
 			{
@@ -56,6 +65,10 @@ public class MenuButtonManager : MonoBehaviour
 					connectGame = true;
 				}
 
+				//Username box
+				GUI.Box(new Rect( (Screen.width/2)-125, (Screen.height/2)-40, 250, 80), "Username:");
+				PhotonNetwork.player.name = GUI.TextField(new Rect( (Screen.width/2)-100, (Screen.height/2)-10, 200, 20), PhotonNetwork.player.name, 25);
+
 				//Host Game button is pushed
 				if(hostGame == true)
 				{
@@ -71,9 +84,11 @@ public class MenuButtonManager : MonoBehaviour
 						//Starts and hosts game
 						networkScript.MakeRoom(gameName);
 						//Changes camera
-						MenuCamera.depth=-1;
+						//MenuCamera.depth=-1;
 						//No longer in menu
 						onMenu = false;
+						//Culling Mask = Default
+						MenuCamera.cullingMask = 1<<0;
 					}
 					else
 					{
@@ -98,9 +113,11 @@ public class MenuButtonManager : MonoBehaviour
 							networkScript.JoinRoom(rooms[i].name);
 							Debug.Log("Connecting...");
 							//Changes camera
-							MenuCamera.depth=-1;
+							//MenuCamera.depth=-1;
 							//No longer on menu screens
 							onMenu = false;
+							//Culling Mask = Default
+							MenuCamera.cullingMask = 1<<0;
 						}
 					}
 				}
@@ -128,6 +145,8 @@ public class MenuButtonManager : MonoBehaviour
 		//On menu screen
 		onMenu = true;
 		//Changes back to menu camera
-		MenuCamera.depth=1;
+		//MenuCamera.depth=1;
+		MenuCamera.cullingMask = 1<<8;
+		returnButtonPressed = false;
 	}
 }

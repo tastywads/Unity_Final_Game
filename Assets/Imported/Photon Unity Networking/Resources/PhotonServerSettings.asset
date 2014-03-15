@@ -24,4 +24,9 @@ MonoBehaviour:
   - InstantiateRpc
   - OnAwakeRPC
   - DestroyRpc
+  - AddChatMessage_RPC
+  - PlayerJoined_RPC
+  - SetGameState_RPC
+  - PlayerRdy_RPC
+  - PlayerNotRdy_RPC
   DisableAutoOpenWizard: 0
