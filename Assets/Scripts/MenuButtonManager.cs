@@ -87,6 +87,7 @@ public class MenuButtonManager : MonoBehaviour
 						//MenuCamera.depth=-1;
 						//No longer in menu
 						onMenu = false;
+						hostGame = false;
 						//Culling Mask = Default
 						MenuCamera.cullingMask = 1<<0;
 					}

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class SpawnManager : MonoBehaviour 
@@ -6,16 +6,10 @@ public class SpawnManager : MonoBehaviour
 	public GameObject[] spawns;
 	public GameplayManager gameplayScript;
 
-	public void SpawnPlayer()
+	public void SpawnPlayer(int index)
 	{
-		if(spawns == null)
-		{
-			Debug.Log("NO SPAWNS?!?!?!");
-			return;
-		}
-
 		Debug.Log ("gameplayScript.GetPlayerNum() = " + gameplayScript.GetPlayerNum());
-		int index = gameplayScript.GetPlayerNum() - 1;
+		//int index = gameplayScript.GetPlayerNum() - 1;
 		Debug.Log (index);
 		GameObject mySpawn = spawns[index];
 
@@ -42,8 +36,11 @@ public class SpawnManager : MonoBehaviour
 		GameObject myPlayerObject = myPlayer.transform.Find("PlayerObject").gameObject;
 		GameObject myPlayerCamera = myPlayer.transform.Find("PlayerCamera").gameObject;
 		PlayerController myPlayerController = myPlayer.GetComponent<PlayerController>();
+		PlayerData myPlayerData = myPlayer.GetComponent<PlayerData>();
 
-		gameplayScript.playerControllerScripts.Add (myPlayerController);
+		gameplayScript.playerControllerScript = myPlayerController;
+		myPlayerData.SetPlayerNum(index);
+		gameplayScript.AddPlayer(myPlayerData);
 		myPlayerCamera.transform.position = new Vector3(0.0f, 15.0f, -21.0f);
 		myPlayerCamera.GetComponent<Camera>().enabled = true;
 		myPlayerCamera.GetComponent<GUILayer>().enabled = true;

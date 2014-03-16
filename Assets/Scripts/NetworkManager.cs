@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class NetworkManager : MonoBehaviour 
 {
-	public SpawnManager spawnScript;
 	public GameplayManager gameplayScript;
 	public MenuButtonManager menuScript;
 
@@ -86,26 +85,26 @@ public class NetworkManager : MonoBehaviour
 	{
 		Debug.Log ("isMessageQueue: " + PhotonNetwork.isMessageQueueRunning);
 		gameplayScript.PlayerJoined();
-		AddChatMessage(PhotonNetwork.player.name + " has joined the game!");
 	}
 
-	private void RoomError()
+	private void OnLeftRoom()
+	{
+		chatMessages.Clear();
+		ToMenu();
+	}
+
+	private void ToMenu()
 	{
 		menuScript.OnMenu();
 	}
 
 	private void OnPhotonJoinRoomFailed()
 	{
-		RoomError();
+		ToMenu();
 	}
 
 	private void OnPhotonCreateRoomFailed()
 	{
-		RoomError();
-	}
-
-	public void SpawnPlayer()
-	{
-		spawnScript.SpawnPlayer();
+		ToMenu();
 	}
 }

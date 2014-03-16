@@ -11,29 +11,32 @@ public class GameplayManager : MonoBehaviour
 		done
 	}
 
+	public SpawnManager spawnScript;
 	public NetworkManager networkScript;
 	public GameManager gameScript;
 	public Camera overviewCamera;
 
-	public List<PlayerController> playerControllerScripts;
+	public PlayerController playerControllerScript;
+	public List<int> playerNums;
 
 	private bool spawned;
 	private bool ready;
 	private bool gameStart;
 	private gameState myGameState;
-	private int playerNum;
+	private int numOfPlayers;
 	private int playersRdy;
 	private PhotonView myPhotonView;
+	private int myPlayerNum;
 
 	void Awake()
 	{
-		playerNum = 0;
+		numOfPlayers = 0;
 		playersRdy = 0;
 		myGameState = gameState.menu;
 		spawned = false;
 		ready = false;
 		gameStart = false;
-		playerControllerScripts = new List<PlayerController>();
+		playerNums = new List<int>();
 	}
 
 	void Start () 
@@ -46,7 +49,24 @@ public class GameplayManager : MonoBehaviour
 		if(myGameState == gameState.waiting && spawned == false)
 		{
 			overviewCamera.enabled = false;
-			networkScript.SpawnPlayer();
+			networkScript.AddChatMessage(PhotonNetwork.player.name + " has joined the game!");
+
+			int index = -1;
+			bool taken = true;
+			while(taken)
+			{
+				++index;
+				taken = false;
+				foreach(int playerNum in playerNums)
+				{
+					if(playerNum == index)
+					{
+						taken = true;
+					}
+				}
+			}
+
+			spawnScript.SpawnPlayer(index);
 			spawned = true;
 		}
 
@@ -59,44 +79,21 @@ public class GameplayManager : MonoBehaviour
 
 	void OnGUI()
 	{
-		Debug.Log("Game State = " + myGameState);
+		if(myGameState != gameState.menu)
+		{
+			if(GUI.Button(new Rect( ((Screen.width/25)*24)-50, (Screen.height/25)-10, 100, 20), "Leave Room"))
+			{
+				RemovePlayer();
+				overviewCamera.enabled = true;
+				networkScript.AddChatMessage(PhotonNetwork.player.name + " has left the game!");
+				PhotonNetwork.LeaveRoom();
+				myGameState = gameState.menu;
+				spawned = false;
+			}
+		}
+
 		if(myGameState == gameState.waiting)
 		{
-			/*if(PhotonNetwork.isMasterClient)
-			{
-				if(playerNum > 1 && playersRdy == (playerNum-1))
-				{
-					if(GUI.Button(new Rect( (Screen.width/6)-70, (Screen.height/2)-50, 140, 80), "Start"))
-					{
-						SetGameState(gameState.playing);
-						spawned = false;
-					}
-				}
-				else
-				{
-					GUI.Button (new Rect((Screen.width/6)-70, (Screen.height/2)-50, 140, 80), "Waiting for Players");
-				}
-			}
-			else
-			{
-				if(ready == false)
-				{
-					if(GUI.Button(new Rect( (Screen.width/6)-70, (Screen.height/2)-50, 140, 80), "Ready"))
-					{
-						myPhotonView.RPC("PlayerRdy_RPC", PhotonTargets.AllBuffered);
-						ready = true;
-					}
-				}
-				else
-				{
-					if(GUI.Button(new Rect( (Screen.width/6)-70, (Screen.height/2)-50, 140, 80), "Not Ready"))
-					{
-						myPhotonView.RPC("PlayerNotRdy_RPC", PhotonTargets.AllBuffered);
-						ready = false;
-					}
-				}
-			}*/
-
 			if(ready == false)
 			{
 				if(GUI.Button(new Rect( (Screen.width/6)-70, (Screen.height/2)-50, 140, 80), "Ready"))
@@ -116,7 +113,7 @@ public class GameplayManager : MonoBehaviour
 				}
 			}
 
-			if(playerNum > 1 && playersRdy == playerNum)
+			if(numOfPlayers > 1 && playersRdy == numOfPlayers)
 			{
 				SetGameState(gameState.playing);
 				myPhotonView.RPC("PlayerNotRdy_RPC", PhotonTargets.AllBuffered);
@@ -152,7 +149,7 @@ public class GameplayManager : MonoBehaviour
 
 	public int GetPlayerNum()
 	{
-		return playerNum;
+		return numOfPlayers;
 	}
 
 	public void PlayerJoined()
@@ -166,16 +163,29 @@ public class GameplayManager : MonoBehaviour
 
 	public void CountdownDone()
 	{
-		foreach(PlayerController scripts in playerControllerScripts)
-		{
-			scripts.enabled = true;
-		}
+		playerControllerScript.enabled = true;
+	}
+
+	public void AddPlayer(PlayerData player)
+	{
+		myPlayerNum = player.GetPlayerNum();
+		myPhotonView.RPC("AddPlayerNum_RPC", PhotonTargets.AllBuffered, myPlayerNum);
+	}
+
+	public void RemovePlayer()
+	{
+		int playerIndex = playerNums.IndexOf(myPlayerNum);
+		myPhotonView.RPC("RemovePlayerNum_RPC", PhotonTargets.AllBuffered, playerIndex);
+
+		GameObject myPlayer = playerControllerScript.gameObject;
+		PhotonNetwork.Destroy(myPlayer);
+		playerControllerScript = null;
 	}
 	
 	[RPC]
 	private void PlayerJoined_RPC()
 	{
-		++playerNum;
+		++numOfPlayers;
 	}
 
 	[RPC]
@@ -209,5 +219,17 @@ public class GameplayManager : MonoBehaviour
 	private void PlayerNotRdy_RPC()
 	{
 		--playersRdy;
+	}
+
+	[RPC]
+	private void AddPlayerNum_RPC(int playerNum)
+	{
+		playerNums.Add(playerNum);
+	}
+
+	[RPC]
+	private void RemovePlayerNum_RPC(int playerIndex)
+	{
+		playerNums.RemoveAt(playerIndex);
 	}
 }

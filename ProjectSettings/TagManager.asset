@@ -9,6 +9,7 @@ TagManager:
   - SpawnSpot
   - DropTwo
   - DropThree
+  - DeadTrigger
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

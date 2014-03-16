@@ -1244,10 +1244,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c98a2a3fa09984ea8865792ef162b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnScript: {fileID: 1248870838}
   networkScript: {fileID: 345211797}
   gameScript: {fileID: 256083300}
   overviewCamera: {fileID: 430946657}
-  playerControllerScripts: []
+  playerControllerScript: {fileID: 0}
+  playerNums: 
 --- !u!114 &256083302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1970,7 +1972,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b6e1593340fbb4f97af211ea766781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnScript: {fileID: 1248870838}
   gameplayScript: {fileID: 256083301}
   menuScript: {fileID: 648927973}
 --- !u!4 &345211798
@@ -5083,6 +5084,53 @@ MeshFilter:
   m_PrefabInternal: {fileID: 780648209}
   m_GameObject: {fileID: 815690020}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &825056075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 825056076}
+  - 33: {fileID: 825056078}
+  - 65: {fileID: 825056077}
+  m_Layer: 0
+  m_Name: Dead Trigger
+  m_TagString: DeadTrigger
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &825056076
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 825056075}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -10, z: 0}
+  m_LocalScale: {x: 60, y: 1, z: 60}
+  m_Children: []
+  m_Father: {fileID: 1280194766}
+--- !u!65 &825056077
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 825056075}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &825056078
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 825056075}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &825443897
 GameObject:
   m_ObjectHideFlags: 0
@@ -7987,6 +8035,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 825056076}
   - {fileID: 1280272345}
   - {fileID: 1503242350}
   - {fileID: 1064155946}

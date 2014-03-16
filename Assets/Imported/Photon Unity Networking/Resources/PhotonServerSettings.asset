@@ -34,4 +34,7 @@ MonoBehaviour:
   - GameStatePlaying_RPC
   - GameStateDone_RPC
   - SetMaterial_RPC
+  - AddPlayer_RPC
+  - AddPlayerNum_RPC
+  - RemovePlayerNum_RPC
   DisableAutoOpenWizard: 0
