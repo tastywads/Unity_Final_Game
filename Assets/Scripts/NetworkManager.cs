@@ -6,7 +6,6 @@ public class NetworkManager : MonoBehaviour
 	public SpawnManager spawnScript;
 	public GameplayManager gameplayScript;
 	public MenuButtonManager menuScript;
-	public Camera overviewCamera;
 
 	private PhotonView myPhotonView;
 	private List<string> chatMessages;
@@ -56,7 +55,7 @@ public class NetworkManager : MonoBehaviour
 	[RPC]
 	private void AddChatMessage_RPC(string message)
 	{
-		while(chatMessages.Count > maxChatMessages)
+		while(chatMessages.Count >= maxChatMessages)
 		{
 			chatMessages.RemoveAt(0);
 		}
@@ -87,7 +86,7 @@ public class NetworkManager : MonoBehaviour
 	{
 		Debug.Log ("isMessageQueue: " + PhotonNetwork.isMessageQueueRunning);
 		gameplayScript.PlayerJoined();
-		overviewCamera.enabled = false;
+		AddChatMessage(PhotonNetwork.player.name + " has joined the game!");
 	}
 
 	private void RoomError()
@@ -108,6 +107,5 @@ public class NetworkManager : MonoBehaviour
 	public void SpawnPlayer()
 	{
 		spawnScript.SpawnPlayer();
-		AddChatMessage(PhotonNetwork.player.name + " has joined the game!");
 	}
 }

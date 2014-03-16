@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public int secBeforewarn;
     public Material warningDrop;
 
+	public GameplayManager gameplayScript;
+
     private bool bGameStart;
 	private bool bFinalCountdown;
 	private bool bDropOne;
@@ -43,13 +45,14 @@ public class GameManager : MonoBehaviour
         // putting child objects of each drop parent into arrays
         dropOneArray = dropOneGroup.GetComponentsInChildren<ToggleObjKenematic>();
         dropTwoArray = dropTwoGroup.GetComponentsInChildren<ToggleObjKenematic>();
-        dropThreeArray = dropThreeGroup.GetComponentsInChildren<ToggleObjKenematic>();      
+        dropThreeArray = dropThreeGroup.GetComponentsInChildren<ToggleObjKenematic>();  
 	}
 
 	void Update () 
 	{
         if (preGameTimer.isEnd() && bGameStart == false)
         {
+			gameplayScript.CountdownDone();
             bGameStart = true;
 
 			//quick fade in and slower fade out
@@ -148,4 +151,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+	public bool GetGameStart()
+	{
+		return bGameStart;
+	}
 }

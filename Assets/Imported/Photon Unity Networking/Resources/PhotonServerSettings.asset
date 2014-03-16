@@ -29,4 +29,9 @@ MonoBehaviour:
   - SetGameState_RPC
   - PlayerRdy_RPC
   - PlayerNotRdy_RPC
+  - GameStateMenu_RPC
+  - GameStateWaiting_RPC
+  - GameStatePlaying_RPC
+  - GameStateDone_RPC
+  - SetMaterial_RPC
   DisableAutoOpenWizard: 0
