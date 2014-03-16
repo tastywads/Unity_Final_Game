@@ -9,18 +9,12 @@ public class NetworkCharacter : Photon.MonoBehaviour
 	private Vector3 realPosition;
 	private Quaternion realRotation;
 	private bool gotFirstUpdate;
-	private Renderer myRenderer;
 
 	void Awake()
 	{
 		myPhotonView = photonView;
 		realPosition = Vector3.zero;
 		realRotation = Quaternion.identity;
-	}
-
-	void Start()
-	{
-		myRenderer = playerTransform.gameObject.GetComponent<Renderer>();
 	}
 
 	void Update()
@@ -41,12 +35,6 @@ public class NetworkCharacter : Photon.MonoBehaviour
 			Debug.Log("IS WRITING");
 			stream.SendNext(playerTransform.position);
 			stream.SendNext(playerTransform.rotation);
-
-			if(!gotFirstUpdate)
-			{
-				//stream.SendNext(myRenderer.material);
-				//gotFirstUpdate = true;
-			}
 		}
 		else
 		{
@@ -59,7 +47,6 @@ public class NetworkCharacter : Photon.MonoBehaviour
 			{
 				playerTransform.position = realPosition;
 				playerTransform.rotation = realRotation;
-				//myRenderer.material = (Material)stream.ReceiveNext();
 				gotFirstUpdate=true;
 			}
 		}

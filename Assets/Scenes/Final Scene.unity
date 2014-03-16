@@ -1232,6 +1232,7 @@ MonoBehaviour:
   dropThreeSec: 10
   secBeforewarn: 1
   warningDrop: {fileID: 2100000, guid: 2f3c41e69466b134b80a7ea4b52c8986, type: 2}
+  gameplayScript: {fileID: 256083301}
 --- !u!114 &256083301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,6 +1245,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkScript: {fileID: 345211797}
+  gameScript: {fileID: 256083300}
+  overviewCamera: {fileID: 430946657}
+  playerControllerScripts: []
 --- !u!114 &256083302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1969,7 +1973,6 @@ MonoBehaviour:
   spawnScript: {fileID: 1248870838}
   gameplayScript: {fileID: 256083301}
   menuScript: {fileID: 648927973}
-  overviewCamera: {fileID: 430946657}
 --- !u!4 &345211798
 Transform:
   m_ObjectHideFlags: 0
@@ -7858,11 +7861,6 @@ MonoBehaviour:
   - {fileID: 590709488}
   - {fileID: 1923576064}
   - {fileID: 511571077}
-  materials:
-  - {fileID: 2100000, guid: 42bf68f79935ff84f9a7738f282127a3, type: 2}
-  - {fileID: 2100000, guid: eafd55aba5ad1c24c810c94c7d1171fe, type: 2}
-  - {fileID: 2100000, guid: b310854496a3fa649bd6cc64407cbd77, type: 2}
-  - {fileID: 2100000, guid: 1d23b43109b70644b91a9fd2f700685c, type: 2}
   gameplayScript: {fileID: 256083301}
 --- !u!4 &1248870839
 Transform:
