@@ -51,4 +51,9 @@ public class NetworkCharacter : Photon.MonoBehaviour
 			}
 		}
 	}
+
+	public void SetFirstUpdate(bool update)
+	{
+		gotFirstUpdate = update;
+	}
 }

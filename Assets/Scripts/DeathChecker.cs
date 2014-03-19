@@ -9,6 +9,7 @@ public class DeathChecker : MonoBehaviour
 	{
 		if(other.CompareTag("DeadTrigger"))
 		{
+			//Player hit trigger
 			playerScript.Died();
 		}
 	}

@@ -37,4 +37,5 @@ MonoBehaviour:
   - AddPlayer_RPC
   - AddPlayerNum_RPC
   - RemovePlayerNum_RPC
+  - PlayerDied_RPC
   DisableAutoOpenWizard: 0

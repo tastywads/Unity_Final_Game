@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerData : MonoBehaviour 
 {
+	public GameplayManager gameplayScript;
+
 	private bool isAlive;
 	private int playerNum;
 
@@ -34,6 +36,8 @@ public class PlayerData : MonoBehaviour
 
 	public void Died()
 	{
+		isAlive = false;
 
+		gameplayScript.PlayerDied();
 	}
 }

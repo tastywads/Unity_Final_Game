@@ -38,6 +38,7 @@ public class SpawnManager : MonoBehaviour
 		PlayerController myPlayerController = myPlayer.GetComponent<PlayerController>();
 		PlayerData myPlayerData = myPlayer.GetComponent<PlayerData>();
 
+		myPlayerData.gameplayScript = gameplayScript;
 		gameplayScript.playerControllerScript = myPlayerController;
 		myPlayerData.SetPlayerNum(index);
 		gameplayScript.AddPlayer(myPlayerData);
