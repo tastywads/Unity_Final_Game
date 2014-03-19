@@ -30,6 +30,10 @@ public class GameplayManager : MonoBehaviour
 	private int playersAlive;
 	private bool amIAlive;
 
+	//Brad added
+	public FadeGUIText winLoseFade;
+	private GUIText winLoseText;
+
 	void Awake()
 	{
 		numOfPlayers = 0;
@@ -45,6 +49,8 @@ public class GameplayManager : MonoBehaviour
 
 	void Start () 
 	{
+		//Brad added
+		winLoseText = winLoseFade.GetComponent<GUIText>();
 		myPhotonView = GetComponent<PhotonView>();
 	}
 
@@ -94,7 +100,14 @@ public class GameplayManager : MonoBehaviour
 				{
 					networkScript.AddChatMessage(PhotonNetwork.player.name + " has won the match!");
 
-					//Add win text screen
+					//Add win text screen - keep in mind this will only fade in
+					winLoseText.text = "WINNAR!";
+					winLoseFade.Fade();
+					//this will reset the fade and fade it back out
+					//winLoseFade.SwitchFadeType();
+					//winLoseFade.ResetFaded();
+					//winLoseFade.Fade();
+
 					PhotonNetwork.Destroy(playerControllerScript.gameObject);
 					playerControllerScript = null;
 					overviewCamera.enabled = true;
@@ -103,6 +116,8 @@ public class GameplayManager : MonoBehaviour
 				else
 				{
 					//Add lose text screen
+					winLoseText.text = "You LOSE";
+					winLoseFade.Fade();
 				}
 
 				gameScript.enabled = false;
