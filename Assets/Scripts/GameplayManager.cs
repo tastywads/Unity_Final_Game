@@ -50,7 +50,8 @@ public class GameplayManager : MonoBehaviour
 	void Start () 
 	{
 		//Brad added
-		winLoseText = winLoseFade.GetComponent<GUIText>();
+		winLoseText = winLoseFade.startText;
+
 		myPhotonView = GetComponent<PhotonView>();
 	}
 
@@ -120,7 +121,30 @@ public class GameplayManager : MonoBehaviour
 					winLoseFade.Fade();
 				}
 
-				gameScript.enabled = false;
+				gameScript.gameTimer.enabled = false;
+			}
+
+			if(gameScript.gameTimer.minutes == 0 && gameScript.gameTimer.seconds == 0 && gameScript.gameTimer.miliseconds == 0)
+			{
+				if(amIAlive)
+				{
+					networkScript.AddChatMessage(PhotonNetwork.player.name + " is tied for first!");
+
+					winLoseText.text = "Draw!";
+					winLoseFade.Fade();
+
+					PhotonNetwork.Destroy(playerControllerScript.gameObject);
+					playerControllerScript = null;
+					overviewCamera.enabled = true;
+					SetGameState(gameState.done);
+				}
+				else
+				{
+					winLoseText.text = "You LOSE";
+					winLoseFade.Fade();
+				}
+
+				gameScript.gameTimer.enabled = false;
 			}
 		}
 	}
@@ -130,17 +154,38 @@ public class GameplayManager : MonoBehaviour
 		Debug.Log ("myGameState = " + myGameState);
 		if(myGameState != gameState.menu)
 		{
-			if(GUI.Button(new Rect( ((Screen.width/25)*24)-50, (Screen.height/25)-10, 100, 20), "Leave Room"))
+			string msg;
+			switch(myGameState)
+			{
+			case gameState.waiting:
+				msg = "Leave Room";
+				break;
+			default:
+				msg = "Leave Game";
+				break;
+			}
+
+			if(GUI.Button(new Rect( ((Screen.width/25)*24)-50, (Screen.height/25)-10, 100, 20), msg))
 			{
 				if(myGameState == gameState.done && ready == true)
 				{
 					myPhotonView.RPC("PlayerNotRdy_RPC", PhotonTargets.AllBuffered);
 					ready = false;
 				}
+				if(myGameState == gameState.playing && amIAlive == true)
+				{
+					myPhotonView.RPC("PlayerDied_RPC", PhotonTargets.AllBuffered);
+				}
 				RemovePlayer();
 				overviewCamera.enabled = true;
 				networkScript.AddChatMessage(PhotonNetwork.player.name + " has left the game!");
 				PhotonNetwork.LeaveRoom();
+
+				if(myGameState!= gameState.waiting)
+				{
+					Application.Quit ();
+				}
+
 				myGameState = gameState.menu;
 				spawned = false;
 			}
@@ -175,6 +220,8 @@ public class GameplayManager : MonoBehaviour
 		}
 		else if(myGameState == gameState.done)
 		{
+			//Attempt on rematches
+			/*
 			if(ready == false)
 			{
 				if(GUI.Button(new Rect( (Screen.width/6)-70, (Screen.height/2)-50, 140, 80), "Rematch"))
@@ -195,6 +242,7 @@ public class GameplayManager : MonoBehaviour
 				SetGameState(gameState.waiting);
 				networkScript.AddChatMessage("New Match");
 			}
+			*/
 		}
 	}
 
