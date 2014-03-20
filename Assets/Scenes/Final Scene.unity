@@ -1054,12 +1054,12 @@ MonoBehaviour:
   dropOneGroup: {fileID: 1280272345}
   dropTwoGroup: {fileID: 1064155946}
   dropThreeGroup: {fileID: 1300689502}
-  dropOneMin: 0
-  dropOneSec: 20
-  dropTwoMin: 0
-  dropTwoSec: 15
+  dropOneMin: 1
+  dropOneSec: 30
+  dropTwoMin: 1
+  dropTwoSec: 0
   dropThreeMin: 0
-  dropThreeSec: 10
+  dropThreeSec: 30
   secBeforewarn: 1
   warningDrop: {fileID: 2100000, guid: 2f3c41e69466b134b80a7ea4b52c8986, type: 2}
   gameplayScript: {fileID: 256083301}
@@ -10386,8 +10386,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: {fileID: 52232390}
-  minutes: 0
-  seconds: 35
+  minutes: 2
+  seconds: 0
   miliseconds: 0
   bToggleMin: 1
   bToggleSec: 1
